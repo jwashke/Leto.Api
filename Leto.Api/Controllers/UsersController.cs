@@ -10,110 +10,117 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Leto.Api.Models;
+using Leto.Api.Services;
+using Leto.Api.Services.Interfaces;
 
 namespace Leto.Api.Controllers
 {
     public class UsersController : ApiController
     {
-        private LetoDbContext db = new LetoDbContext();
+        private IUserService userService;
+
+        public UsersController(IUserService _userService)
+        {
+            userService = _userService;
+        }
 
         // GET: api/Users
-        public IQueryable<User> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            return db.Users;
+            return userService.All();
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> GetUser(int id)
-        {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Users/5
+        //[ResponseType(typeof(User))]
+        //public async Task<IHttpActionResult> GetUser(int id)
+        //{
+        //    User user = await db.Users.FindAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
-        // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(int id, User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Users/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutUser(int id, User user)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != user.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(user).State = EntityState.Modified;
+        //    db.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/Users
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostUser(User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Users
+        //[ResponseType(typeof(User))]
+        //public async Task<IHttpActionResult> PostUser(User user)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
+        //    db.Users.Add(user);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+        //}
 
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> DeleteUser(int id)
-        {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Users/5
+        //[ResponseType(typeof(User))]
+        //public async Task<IHttpActionResult> DeleteUser(int id)
+        //{
+        //    User user = await db.Users.FindAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Users.Remove(user);
-            await db.SaveChangesAsync();
+        //    db.Users.Remove(user);
+        //    await db.SaveChangesAsync();
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        private bool UserExists(int id)
-        {
-            return db.Users.Count(e => e.Id == id) > 0;
-        }
+        //private bool UserExists(int id)
+        //{
+        //    return db.Users.Count(e => e.Id == id) > 0;
+        //}
     }
 }
