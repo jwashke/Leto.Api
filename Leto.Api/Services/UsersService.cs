@@ -12,15 +12,12 @@ namespace Leto.Api.Services
     public class UserService : IUserService
     {
         private UserRepository _userRepository { get; set; }
+        private AuthService _authService { get; set; }
 
-        public UserService(UserRepository userRepository)
+        public UserService(UserRepository userRepository, AuthService authService)
         {
             _userRepository = userRepository;
-        }
-
-        public IEnumerable<User> All()
-        {
-            return _userRepository.All();
+            _authService = authService;
         }
 
         public UserResource Create(User newUser)
@@ -31,9 +28,13 @@ namespace Leto.Api.Services
             _userRepository.SaveChanges();
 
             var userResource = new UserResource();
-            userResource.User = newUser;
+            userResource.Id = newUser.Id;
+            userResource.Name = newUser.Name;
+            userResource.Email = newUser.Email;
 
             // Generate token here
+            string token = _authService.CreateToken(userResource.Email);
+            userResource.AccessToken = token;
 
             return userResource;
         }

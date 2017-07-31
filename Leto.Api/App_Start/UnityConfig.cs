@@ -47,6 +47,7 @@ namespace Leto.Api.App_Start
             container.RegisterType<LetoDbContext>(new HierarchicalLifetimeManager());
 
             // Services
+            container.RegisterType<IAuthService, AuthService>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserService, UserService>(new HierarchicalLifetimeManager());
 
             // Repositories

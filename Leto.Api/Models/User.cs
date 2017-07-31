@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace Leto.Api.Models
         [Required,MaxLength(30)]
         public string Name { get; set; }
 
-        [Required, JsonIgnore]
+        [Required]
         public string Password { get; set; }
     }
 }

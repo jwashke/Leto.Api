@@ -25,63 +25,13 @@ namespace Leto.Api.Controllers
             userService = _userService;
         }
 
-        // GET: api/Users
-        public IEnumerable<User> GetUsers()
-        {
-            return userService.All();
-        }
-
-        //// GET: api/Users/5
-        //[ResponseType(typeof(User))]
-        //public async Task<IHttpActionResult> GetUser(int id)
-        //{
-        //    User user = await db.Users.FindAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(user);
-        //}
-
-        //// PUT: api/Users/5
-        //[ResponseType(typeof(void))]
-        //public async Task<IHttpActionResult> PutUser(int id, User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != user.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(user).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
-
-        // POST: api/Users
+        /// <summary>
+        /// Creates a new User and returns the user info along with a jwt access token.
+        /// </summary>
+        /// <param name="newUser">The User object to be created.</param>
+        /// <returns></returns>
         [ResponseType(typeof(UserResource))]
-        public IHttpActionResult CreateUser(User newUser)
+        public IHttpActionResult CreateUser([FromBody] User newUser)
         {
             try
             {
@@ -93,35 +43,5 @@ namespace Leto.Api.Controllers
                 return BadRequest("An error has occurred: " + ex.Message);
             }
         }
-
-        //// DELETE: api/Users/5
-        //[ResponseType(typeof(User))]
-        //public async Task<IHttpActionResult> DeleteUser(int id)
-        //{
-        //    User user = await db.Users.FindAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Users.Remove(user);
-        //    await db.SaveChangesAsync();
-
-        //    return Ok(user);
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //private bool UserExists(int id)
-        //{
-        //    return db.Users.Count(e => e.Id == id) > 0;
-        //}
     }
 }

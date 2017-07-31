@@ -9,7 +9,6 @@ namespace Leto.Api.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        IEnumerable<User> All();
         void Create(User user);
         void SaveChanges();
     }

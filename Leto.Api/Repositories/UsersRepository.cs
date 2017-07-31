@@ -17,11 +17,6 @@ namespace Leto.Api.Repositories
             _context = context;
         }
 
-        public IEnumerable<User> All()
-        {
-            return _context.Users.ToList();
-        }
-
         public void Create(User user)
         {
             _context.Users.Add(user);
