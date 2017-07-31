@@ -1,4 +1,5 @@
 ﻿using Leto.Api.Models;
+using Leto.Api.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Leto.Api.Services.Interfaces
     public interface IUserService
     {
         IEnumerable<User> All();
+        UserResource Create(User user);
     }
 }

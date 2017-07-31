@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using Leto.Api.Models;
 using Leto.Api.Services;
 using Leto.Api.Services.Interfaces;
+using Leto.Api.Resources;
 
 namespace Leto.Api.Controllers
 {
@@ -78,20 +79,20 @@ namespace Leto.Api.Controllers
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
 
-        //// POST: api/Users
-        //[ResponseType(typeof(User))]
-        //public async Task<IHttpActionResult> PostUser(User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    db.Users.Add(user);
-        //    await db.SaveChangesAsync();
-
-        //    return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
-        //}
+        // POST: api/Users
+        [ResponseType(typeof(UserResource))]
+        public IHttpActionResult CreateUser(User newUser)
+        {
+            try
+            {
+                var user = userService.Create(newUser);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error has occurred: " + ex.Message);
+            }
+        }
 
         //// DELETE: api/Users/5
         //[ResponseType(typeof(User))]
