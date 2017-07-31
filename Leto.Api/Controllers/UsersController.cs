@@ -18,29 +18,30 @@ namespace Leto.Api.Controllers
 {
     public class UsersController : ApiController
     {
-        private IUserService userService;
+        private IUserService _userService;
 
-        public UsersController(IUserService _userService)
+        public UsersController(IUserService userService)
         {
-            userService = _userService;
+            _userService = userService;
         }
 
         /// <summary>
         /// Creates a new User and returns the user info along with a jwt access token.
         /// </summary>
         /// <param name="newUser">The User object to be created.</param>
-        /// <returns></returns>
+        /// <returns>The User resource object with the new user info and an access token.</returns>
+        [HttpPost]
         [ResponseType(typeof(UserResource))]
         public IHttpActionResult CreateUser([FromBody] User newUser)
         {
             try
             {
-                var user = userService.Create(newUser);
+                var user = _userService.Create(newUser);
                 return Ok(user);
             }
             catch (Exception ex)
             {
-                return BadRequest("An error has occurred: " + ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

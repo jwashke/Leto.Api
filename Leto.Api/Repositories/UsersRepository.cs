@@ -10,7 +10,7 @@ namespace Leto.Api.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private LetoDbContext _context { get; set; }
+        private LetoDbContext _context;
 
         public UserRepository(LetoDbContext context)
         {
@@ -25,6 +25,11 @@ namespace Leto.Api.Repositories
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public User FindByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(user => user.Email == email);
         }
     }
 }

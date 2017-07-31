@@ -10,6 +10,9 @@ namespace Leto.Api.Repositories.Interfaces
     public interface IUserRepository
     {
         void Create(User user);
+
         void SaveChanges();
+
+        User FindByEmail(string userEmail);
     }
 }

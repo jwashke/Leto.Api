@@ -506,12 +506,19 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Leto.Api.Controllers.AuthController.LoginUser(Leto.Api.Models.User)">
+            <summary>
+            Logins a user by returning the user data and an access token
+            </summary>
+            <param name="user">User to be logged in, only need email and password</param>
+            <returns>The User resource object with the new user info and an access token.</returns>
+        </member>
         <member name="M:Leto.Api.Controllers.UsersController.CreateUser(Leto.Api.Models.User)">
             <summary>
             Creates a new User and returns the user info along with a jwt access token.
             </summary>
             <param name="newUser">The User object to be created.</param>
-            <returns></returns>
+            <returns>The User resource object with the new user info and an access token.</returns>
         </member>
     </members>
 </doc>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,7 @@ namespace Leto.Api.Models
     {
         public int Id { get; set; }
 
-        [Required,MaxLength(30)]
+        [Required,MaxLength(30),Index(IsUnique = true)]
         public string Email { get; set; }
 
         [Required,MaxLength(30)]

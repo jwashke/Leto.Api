@@ -11,5 +11,7 @@ namespace Leto.Api.Services.Interfaces
     public interface IUserService
     {
         UserResource Create(User user);
+
+        UserResource Login(User user);
     }
 }
